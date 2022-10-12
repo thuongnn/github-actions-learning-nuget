@@ -28,7 +28,7 @@ jobs:
 
       - name: Build
         working-directory: samples-dotnet-helloworld
-        run: dotnet build -c Release --no-restore -o $OUTPUT_FOLDER
+        run: dotnet pack -c Release --no-restore -o $OUTPUT_FOLDER
 
       # - name: Restore dependency packages
       #   working-directory: samples-dotnet-helloworld
