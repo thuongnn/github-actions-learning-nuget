@@ -23,15 +23,15 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-          nuget-version: '>=2.0'
+          nuget-version: '>=2'
 
       - name: Restore dependency packages
         working-directory: PackageIconExample
-        run: dotnet restore PackageIconExample.sln
+        run: nuget restore PackageIconExample.sln
 
       - name: Build dotnet core project
         working-directory: PackageIconExample
-        run: dotnet pack -c Release -o $OUTPUT_FOLDER PackageIconExample.csproj
+        run: dotnet pack -c Release -o $OUTPUT_FOLDER PackageIconExample.csproj --no-restore
 
       - name: Publish the package to nuget.org
         working-directory: PackageIconExample
