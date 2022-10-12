@@ -27,7 +27,7 @@ jobs:
 
       - name: Restore dependency packages
         working-directory: PackageIconExample
-        run: nuget restore PackageIconExample.sln
+        run: dotnet restore PackageIconExample.sln
 
       - name: Build dotnet core project
         working-directory: PackageIconExample
