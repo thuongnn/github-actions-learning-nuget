@@ -23,7 +23,7 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-          nuget-version: '2.0.0-rc'
+          nuget-version: '>=2.0'
 
       - name: Restore dependency packages
         working-directory: PackageIconExample
