@@ -23,15 +23,15 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-          nuget-version: '>=2'
+          nuget-version: '4.6.1'
 
-      - name: Restore dependency packages
-        working-directory: samples-dotnet-helloworld
-        run: nuget restore
+      # - name: Restore dependency packages
+      #   working-directory: samples-dotnet-helloworld
+      #   run: nuget restore
 
       - name: Build dotnet core project
         working-directory: samples-dotnet-helloworld
-        run: dotnet pack -c Release -o $OUTPUT_FOLDER samples-dotnet-helloworld.csproj --no-restore
+        run: dotnet pack -c Release -o $OUTPUT_FOLDER samples-dotnet-helloworld.csproj
 
       - name: Publish the package to nuget.org
         working-directory: samples-dotnet-helloworld
