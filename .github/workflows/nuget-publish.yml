@@ -10,32 +10,31 @@ jobs:
     env:
       OUTPUT_FOLDER: out
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Setup .NET Core @ Latest
-        uses: actions/setup-dotnet@v1
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
         with:
-          source-url: https://api.nuget.org/v3/index.json
-          dotnet-version: 5.0.x
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}  
-
-      # - name: Setup dotnet
-      #   uses: nuget/setup-nuget@v1
-      #   with:
-      #     nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-      #     nuget-version: '4.6.1'
-
-      - name: Restore dependency packages
+          dotnet-version: ${{ matrix.dotnet-version }}
+          
+      - name: Install dependencies
         working-directory: samples-dotnet-helloworld
         run: dotnet restore
 
-      - name: Build dotnet core project
+      - name: Build
         working-directory: samples-dotnet-helloworld
-        run: dotnet publish -c Release -o $OUTPUT_FOLDER
+        run: dotnet build --configuration Release --no-restore
 
-      - name: Publish the package to nuget.org
-        working-directory: samples-dotnet-helloworld
-        run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg --skip-duplicate --no-symbols true
+      # - name: Restore dependency packages
+      #   working-directory: samples-dotnet-helloworld
+      #   run: dotnet restore
+
+      # - name: Build dotnet core project
+      #   working-directory: samples-dotnet-helloworld
+      #   run: dotnet publish -c Release -o $OUTPUT_FOLDER
+
+      # - name: Publish the package to nuget.org
+      #   working-directory: samples-dotnet-helloworld
+      #   run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg --skip-duplicate --no-symbols true
 
       
