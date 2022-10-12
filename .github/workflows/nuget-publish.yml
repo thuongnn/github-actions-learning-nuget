@@ -36,7 +36,7 @@ jobs:
 
       - name: Debug
         working-directory: samples-dotnet-helloworld
-        run: ls -lah 
+        run: ls -lah ./out
 
       - name: Publish the package to nuget.org
         working-directory: samples-dotnet-helloworld
