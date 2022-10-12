@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           source-url: https://api.nuget.org/v3/index.json
-          dotnet-version: 4.7.x
+          dotnet-version: 5.0.x
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}  
 
@@ -26,9 +26,9 @@ jobs:
       #     nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       #     nuget-version: '4.6.1'
 
-      # - name: Restore dependency packages
-      #   working-directory: samples-dotnet-helloworld
-      #   run: nuget restore
+      - name: Restore dependency packages
+        working-directory: samples-dotnet-helloworld
+        run: dotnet restore
 
       - name: Build dotnet core project
         working-directory: samples-dotnet-helloworld
