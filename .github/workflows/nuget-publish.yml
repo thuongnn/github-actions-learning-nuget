@@ -23,10 +23,13 @@ jobs:
         nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
     - name: Restore Packages
-      run: nuget restore $PROJECT
+      run: msbuild $PROJECT -t:restore,build -p:RestorePackagesConfig=true
 
-    - name: Build solution
-      run: dotnet build $PROJECT
+    - name: Package
+      run: msbuild -t:pack $PROJECT -p:NuspecFile=samples-dotnet-helloworld/.nuspec
+
+    - name: Debug
+      run: ls
 
     - name: Publish the package to nuget.org
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json'
