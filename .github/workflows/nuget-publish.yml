@@ -31,7 +31,7 @@ jobs:
 
       - name: Build dotnet core project
         working-directory: samples-dotnet-helloworld
-        run: dotnet pack -c Release -o $OUTPUT_FOLDER samples-dotnet-helloworld.csproj
+        run: dotnet publish -c Release -o $OUTPUT_FOLDER
 
       - name: Publish the package to nuget.org
         working-directory: samples-dotnet-helloworld
