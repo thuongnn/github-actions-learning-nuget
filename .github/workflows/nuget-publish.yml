@@ -15,7 +15,7 @@ jobs:
       - name: Setup .NET Core @ Latest
         uses: actions/setup-dotnet@v1
         with:
-          source-url: https://api.nuget.org/thuongnn/index.json
+          source-url: https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}  
 
@@ -23,7 +23,7 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-          nuget-version: '>=2'
+          nuget-version: '2'
 
       - name: Restore dependency packages
         working-directory: PackageIconExample
