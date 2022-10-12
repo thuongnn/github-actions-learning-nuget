@@ -19,6 +19,8 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+        # env:
+        #   NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Install dependencies
         working-directory: samples-dotnet-helloworld
@@ -40,6 +42,6 @@ jobs:
         working-directory: samples-dotnet-helloworld
         run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg -k $NUGET_API_KEY
         env:
-          NUGET_API_KEY: ${{ secrets.NPM_TOKEN }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
       
