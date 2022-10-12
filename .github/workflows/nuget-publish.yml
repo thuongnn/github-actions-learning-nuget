@@ -26,15 +26,15 @@ jobs:
           nuget-version: '>=2'
 
       - name: Restore dependency packages
-        working-directory: PackageIconExample
-        run: nuget restore PackageIconExample.sln
+        working-directory: samples-dotnet-helloworld
+        run: nuget restore
 
       - name: Build dotnet core project
-        working-directory: PackageIconExample
-        run: dotnet pack -c Release -o $OUTPUT_FOLDER PackageIconExample.csproj --no-restore
+        working-directory: samples-dotnet-helloworld
+        run: dotnet pack -c Release -o $OUTPUT_FOLDER samples-dotnet-helloworld.csproj --no-restore
 
       - name: Publish the package to nuget.org
-        working-directory: PackageIconExample
+        working-directory: samples-dotnet-helloworld
         run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg --skip-duplicate --no-symbols true
 
       
