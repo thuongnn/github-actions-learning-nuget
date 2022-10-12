@@ -16,7 +16,7 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
       with:
-        nuget-version: 4.6.1
+        nuget-version: 4.8
       
     - name: Restore Packages
       run: nuget restore samples-dotnet-helloworld.sln
