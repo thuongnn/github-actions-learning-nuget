@@ -26,12 +26,11 @@ jobs:
           nuget-version: '2'
 
       - name: Restore dependency packages
-        working-directory: PackageIconExample
         run: dotnet restore PackageIconExample.sln
 
       - name: Build dotnet core project
         working-directory: PackageIconExample
-        run: dotnet pack -c Release -o $OUTPUT_FOLDER PackageIconExample.csproj --no-restore
+        run: dotnet pack -c Release -o $OUTPUT_FOLDER PackageIconExample.csproj
 
       - name: Publish the package to nuget.org
         working-directory: PackageIconExample
