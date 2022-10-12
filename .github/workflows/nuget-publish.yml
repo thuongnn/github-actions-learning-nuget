@@ -40,7 +40,7 @@ jobs:
 
       - name: Publish the package to nuget.org
         working-directory: samples-dotnet-helloworld
-        run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg -k $NUGET_API_KEY
+        run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg -k $NUGET_API_KEY -src https://nuget.pkg.com/v3/index.json
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
