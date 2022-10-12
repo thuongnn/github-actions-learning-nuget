@@ -3,45 +3,67 @@ on:
   push:
     branches:
       - master
+
 jobs:
-  publish:
-    name: build, pack & publish
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ['3.0']
-    env:
-      OUTPUT_FOLDER: out
+  build:
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-        # env:
-        #   NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
 
-      - name: Install dependencies
-        working-directory: samples-dotnet-helloworld
-        run: dotnet restore
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.1
 
-      - name: Build
-        working-directory: samples-dotnet-helloworld
-        run: dotnet pack -c Release --no-restore -o $OUTPUT_FOLDER
+    - name: Restore Packages
+      run: nuget restore samples-dotnet-helloworld.sln
 
-      # - name: Restore dependency packages
-      #   working-directory: samples-dotnet-helloworld
-      #   run: dotnet restore
+    - name: Build solution
+      run: msbuild samples-dotnet-helloworld.sln -t:rebuild -property:Configuration=Release
 
-      - name: Debug
-        working-directory: samples-dotnet-helloworld
-        run: ls -lah ./out
+# jobs:
+#   publish:
+#     name: build, pack & publish
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         dotnet-version: ['3.0']
+#     env:
+#       OUTPUT_FOLDER: out
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Publish the package to nuget.org
-        working-directory: samples-dotnet-helloworld
-        run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+#       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+#         uses: actions/setup-dotnet@v3
+#         with:
+#           dotnet-version: ${{ matrix.dotnet-version }}
+#         # env:
+#         #   NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+#       - name: Install dependencies
+#         working-directory: samples-dotnet-helloworld
+#         run: dotnet restore
+
+#       - name: Build
+#         working-directory: samples-dotnet-helloworld
+#         run: dotnet pack -c Release --no-restore -o $OUTPUT_FOLDER
+
+#       # - name: Restore dependency packages
+#       #   working-directory: samples-dotnet-helloworld
+#       #   run: dotnet restore
+
+#       - name: Debug
+#         working-directory: samples-dotnet-helloworld
+#         run: ls -lah ./out
+
+#       - name: Publish the package to nuget.org
+#         working-directory: samples-dotnet-helloworld
+#         run: dotnet nuget push $OUTPUT_FOLDER/*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json
+#         env:
+#           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
       
