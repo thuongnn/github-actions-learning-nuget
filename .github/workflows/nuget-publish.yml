@@ -26,7 +26,8 @@ jobs:
       run: msbuild $PROJECT -t:restore,build -p:RestorePackagesConfig=true
 
     - name: Package
-      run: nuget pack $PROJECT -p:NuspecFile=samples-dotnet-helloworld/.nuspec
+      working-directory: samples-dotnet-helloworld
+      run: nuget pack HelloWorld.nuspec
 
     - name: Debug
       run: ls
