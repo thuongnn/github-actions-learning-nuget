@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <PackageId>github-actions-learning-nuget</PackageId>
+    <PackageId>HelloWorld.github-actions-learning</PackageId>
     <Version>12.4.0</Version>
     <PackageTags>Microsoft Azure Storage Blobs;Microsoft;Azure;Blobs;Blob;Storage;StorageScalable</PackageTags>
     <Description>
